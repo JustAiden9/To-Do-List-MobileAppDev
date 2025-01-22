@@ -12,12 +12,19 @@ struct ContentView: View {
     [ToDoItem(priority: "High", description: "Take out trash", dueDate: Date()),
      ToDoItem(priority: "Medium", description: "Pick up clothes", dueDate: Date()),
      ToDoItem(priority: "Low", description: "Eat a donut", dueDate: Date())]
-    
     var body: some View {
         NavigationView {
             List {
                 ForEach(toDoItems) { item in
-                    Text(item.description)
+                    HStack {
+                        VStack(alignment: .leading, content: {
+                            Text(item.priority).font(.headline)
+                            Text(item.description)
+                            
+                        })
+                        Spacer()
+                        Text(item.dueDate, style: .date)
+                    }
                 }
                 .onMove(perform: { indices, newOffset in
                     toDoItems.move(fromOffsets: indices, toOffset: newOffset)
